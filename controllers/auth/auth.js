@@ -17,7 +17,7 @@ export async function signupUser(req, res) {
             secure: process.env.NODE_ENV === 'production',  
             sameSite: 'None',  
             maxAge: 3600000,  
-            domain: process.env.API_URL,
+            domain: process.env.API_DOMAIN,
         });
         res.status(201).json({ id: user_data._id });
     } catch (err) {
@@ -43,7 +43,7 @@ export async function loginUser(req, res) {
             secure: process.env.NODE_ENV === 'production',  
             sameSite: 'None',  
             maxAge: 3600000,  
-            domain: process.env.API_URL,
+            domain: process.env.API_DOMAIN,
         });
         return res.status(200).json({ id: user_data._id });
     } catch (err) {
