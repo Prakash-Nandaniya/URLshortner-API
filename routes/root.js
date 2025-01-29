@@ -7,9 +7,10 @@ import { redirectURL } from '../controllers/user/url.js'
 
 const router=express.Router()
 
-router.get('/',mainHome) 
 router.get('/:id',redirectURL) 
 router.use('/auth',auth)
 router.use('/user',authentication,user)
+router.get('/',mainHome) 
 
 export default router
+
