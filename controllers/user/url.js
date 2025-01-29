@@ -10,7 +10,7 @@ export async function generateURL(req, res) {
     let new_url = `${req.protocol}://${req.get('host')}/${shortid}`;
 
     try {
-        const userIp = req.ip;
+        const userIp = req.headers['x-forwarded-for'] || req.socket.remoteAddress;
         let clickData = {
             timestamp: new Date(),
             ip: userIp,
@@ -74,8 +74,7 @@ export async function redirectURL(req, res) {
         const URLinfo = await url_model.findOne({ id: url_id });
         if (URLinfo) {
             const _id = URLinfo._id;
-
-            const userIp = req.ip;
+            const userIp = req.headers['x-forwarded-for'] || req.socket.remoteAddress;
             let clickData = {
                 timestamp: new Date(),
                 ip: userIp,
