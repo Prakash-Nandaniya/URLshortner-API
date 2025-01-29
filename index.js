@@ -14,7 +14,7 @@ connectDB().then(() => {
 
 app.options('*', cors()); // Enable preflight requests for all routes
 app.use(cors({
-    origin: 'http://localhost:5173', // Or '*'
+    origin: true,
     methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
     allowedHeaders: ['Content-Type', 'Authorization'],
     credentials: true,
