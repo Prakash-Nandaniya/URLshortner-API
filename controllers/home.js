@@ -7,8 +7,8 @@ export async function mainHome(req, res) {
         const total_url_visits = registered_urls.reduce((sum, doc) => sum + (doc.clicks?.length || 0), 0);
 
         res.status(200).json({
-            total_url_visits,
-            total_registered_url,
+            totalClicks: total_url_visits,
+            totalRegisteredLinks:total_registered_url,
         });
     } catch (err) {
         console.error("Error fetching URL data:", err);
