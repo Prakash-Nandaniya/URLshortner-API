@@ -9,7 +9,7 @@ const router=express.Router()
 
 router.get('/:id',redirectURL) 
 router.use('/auth',auth)
-router.use('/user',user)
+router.use('/user',authentication,user)
 router.get('/',mainHome) 
 
 export default router
