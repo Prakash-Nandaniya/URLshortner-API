@@ -5,7 +5,7 @@ const secretkey = process.env.SECRET_KEY;
 export async function authentication(req, res, next) {
     const token = req.cookies.token;  
     if (!token) {
-        return res.status(401).json({ message: 'Unauthorized' });  
+        return res.status(401).json({ message: secretkey });  
     }
     
     jwt.verify(token, secretkey, (err, decoded) => {
