@@ -12,7 +12,7 @@ connectDB().then(() => {
 });
 
 
-app.options('*', cors()); // Enable preflight requests for all routes
+app.options(true, cors()); // Enable preflight requests for all routes
 app.use(cors({
     origin: true,
     methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
