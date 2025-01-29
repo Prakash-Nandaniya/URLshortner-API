@@ -11,8 +11,13 @@ export async function signupUser(req, res) {
             username: username,
             password: password,
         });
-        const token = jwt.sign({ username: username, _id: user_data._id }, secretkey, { expiresIn: '10s' });
-        res.cookie('token', token, { httpOnly: true });
+        const token = jwt.sign({ username: username, _id: user_data._id }, secretkey, { expiresIn: '10h' });
+        res.cookie('token', token, {
+            httpOnly: true,  
+            secure: process.env.NODE_ENV === 'production',  
+            sameSite: 'None',  
+            maxAge: 3600000,  
+        });
         res.status(201).json({ id: user_data._id });
     } catch (err) {
         console.error(err);
@@ -33,9 +38,10 @@ export async function loginUser(req, res) {
             { expiresIn: '10h' }
         );
         res.cookie('token', token, {
-            httpOnly: true, 
-            secure: true, 
-            sameSite: 'strict', 
+            httpOnly: true,  
+            secure: process.env.NODE_ENV === 'production',  
+            sameSite: 'None',  
+            maxAge: 3600000,  
         });
         return res.status(200).json({ id: user_data._id });
     } catch (err) {
