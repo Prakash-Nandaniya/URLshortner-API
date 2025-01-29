@@ -8,18 +8,15 @@ import cors from 'cors';
 const app = express();
 const port = process.env.PORT || 3000;
 connectDB().then(() => {
-    app.listen(port , () => { console.log(`server started on port ${port}`) });
+    app.listen(port, () => { console.log(`server started on port ${port}`) });
 });
 
-const corsOptions = {
-    origin: (origin, callback) => {
-        callback(null, true);
-    },
-    methods: ['GET', 'POST', 'PUT', 'DELETE'],
-    allowedHeaders: ['Content-Type', 'Authorization'],
-    credentials: true,
-};
-app.use(cors(corsOptions));
+app.use(cors({
+    origin: 'http://localhost:5173', 
+    methods: ['GET', 'POST', 'OPTIONS'], 
+    credentials: true, 
+}));
+app.options('*', cors());
 
 
 app.param('id', (req, res, next, id) => {
