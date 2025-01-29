@@ -14,17 +14,24 @@ connectDB().then(() => {
 
 const corsOptions = {
     origin: (origin, callback) => {
-        if (!allowedOrigins.includes(origin)) {
-            console.log(`Adding new origin: ${origin}`);
-            allowedOrigins.push(origin);
+        if (!origin) {
+            // Allow requests with no origin (like Postman or mobile apps)
+            return callback(null, true);
         }
-        callback(null, true);
+
+        // Allow any origin by dynamically reflecting it
+        callback(null, origin);
     },
+    credentials: true, // Allow credentials (cookies, auth headers, etc.)
     methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
     allowedHeaders: ['Content-Type', 'Authorization'],
-    credentials: true, 
 };
+
+// Use CORS middleware with dynamic origin support
 app.use(cors(corsOptions));
+
+// Handle preflight (OPTIONS) requests globally
+app.options('*', cors(corsOptions));
 
 
 app.param('id', (req, res, next, id) => {
