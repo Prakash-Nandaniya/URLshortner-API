@@ -3,3 +3,4 @@ node_modules/
 log.txt
 secret.txt
 package-lock.json
+middlewares/log.js

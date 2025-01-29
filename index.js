@@ -1,7 +1,6 @@
 import 'module-alias/register.js';
 import express from 'express';
 import connectDB from './connections.js';
-import { logReqRes } from './middlewares/log.js';
 import cookie_parser from 'cookie-parser';
 import root from './routes/root.js';
 import cors from 'cors';
@@ -11,9 +10,6 @@ const port = process.env.PORT || 3000;
 connectDB().then(() => {
     app.listen(port , () => { console.log(`server started on port ${port}`) });
 });
-
-app.use(logReqRes);
-
 
 const corsOptions = {
     origin:'http://localhost:5173',
