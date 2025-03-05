@@ -4,9 +4,9 @@ import connectDB from './connections.js';
 import cookie_parser from 'cookie-parser';
 import root from './routes/root.js';
 import cors from 'cors';
-
+import dotenv from 'dotenv/config.js';
 const app = express();
-const port = process.env.PORT || 3000;
+const port = process.env.PORT ;
 connectDB().then(() => {
     app.listen(port , () => { console.log(`server started on port ${port}`) });
 });

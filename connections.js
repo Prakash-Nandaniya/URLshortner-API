@@ -1,5 +1,5 @@
 import mongoose from 'mongoose';
-
+import dotenv from 'dotenv/config.js';
 const DB_url = process.env.DB_URL;
 
 async function connectDB() {
