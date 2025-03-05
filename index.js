@@ -45,3 +45,6 @@ app.use(express.static('static'));
 app.use(express.urlencoded({ extended: true }));
 
 app.use('/', root); 
+
+
+export default app;
