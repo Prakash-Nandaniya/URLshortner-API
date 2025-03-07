@@ -16,7 +16,7 @@ export async function signupUser(req, res) {
             httpOnly: true,  
             secure: process.env.NODE_ENV === 'production',  
             sameSite: 'None',  
-            maxAge: 3600000,  
+            maxAge: 86400000,  
             domain: process.env.API_DOMAIN,
         });
         res.status(201).json({ id: user_data._id });
