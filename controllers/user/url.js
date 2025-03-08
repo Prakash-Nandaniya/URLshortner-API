@@ -17,9 +17,6 @@ export async function generateURL(req, res) {
             latitude: null,
             longitude: null,
             country: null,
-            region: null,
-            city: null,
-            isp: null,
             device: null,
             browser: "Unknown",
             referrer: req.get("Referer") || "Direct",
@@ -34,9 +31,6 @@ export async function generateURL(req, res) {
                 latitude: lat,
                 longitude: lon,
                 country: country,
-                region: region,
-                city: city,
-                isp: isp,
                 device: device,
                 browser: browser || "Unknown",
             };
@@ -50,12 +44,14 @@ export async function generateURL(req, res) {
             short_url: new_url,
             created_by: req._id,
             clicks: [clickData],
+            clicks_count: 1,
         });
 
         const response = {
+            _id: createdURL._id,
             url: createdURL.url,
             short_url: createdURL.short_url,
-            clicks: createdURL.clicks,
+            clicks_count: createdURL.clicks,
         };
         res.status(201).json(response);
     } catch (err) {
@@ -81,9 +77,6 @@ export async function redirectURL(req, res) {
                 latitude: null,
                 longitude: null,
                 country: null,
-                region: null,
-                city: null,
-                isp: null,
                 device: null,
                 browser: "Unknown",
                 referrer: req.get("Referer") || "Direct",
@@ -98,9 +91,6 @@ export async function redirectURL(req, res) {
                     latitude: lat,
                     longitude: lon,
                     country: country,
-                    region: region,
-                    city: city,
-                    isp: isp,
                     device: device,
                     browser: browser || "Unknown",
                 };
@@ -109,7 +99,8 @@ export async function redirectURL(req, res) {
             }
 
             URLinfo.clicks.push(clickData);
-            const data = { clicks: URLinfo.clicks };
+            URLinfo.clicks_count += 1;
+            const data = { clicks: URLinfo.clicks , clicks_count: URLinfo.clicks_count };
             await url_model.findByIdAndUpdate(_id, data);
             res.redirect(URLinfo.url);
         } else {

@@ -36,7 +36,7 @@ export async function loginUser(req, res) {
         const token = jwt.sign(
             { username: user_data.username, _id: user_data._id },
             secretkey,
-            { expiresIn: '10h' }
+            { expiresIn: '24h' }
         );
         res.cookie('token', token, {
             httpOnly: true,  

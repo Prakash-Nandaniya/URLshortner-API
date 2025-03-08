@@ -16,6 +16,10 @@ const url_schema = new Schema({
         unique: true,
         required: true,
     },
+    clicks_count: {
+        type: Number,
+        default: 0,
+    },
     clicks: {
         type: [
             {
@@ -36,14 +40,6 @@ const url_schema = new Schema({
                     required: false, 
                 },
                 country: {
-                    type: String,
-                    required: false, 
-                },
-                region: {
-                    type: String,
-                    required: false, 
-                },
-                city: {
                     type: String,
                     required: false, 
                 },
