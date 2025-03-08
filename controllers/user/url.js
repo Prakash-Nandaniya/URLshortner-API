@@ -51,7 +51,7 @@ export async function generateURL(req, res) {
             _id: createdURL._id,
             url: createdURL.url,
             short_url: createdURL.short_url,
-            clicks_count: createdURL.clicks,
+            clicks_count: createdURL.clicks_count,
         };
         res.status(201).json(response);
     } catch (err) {
