@@ -14,12 +14,7 @@ export async function userHome(req, res) {
         const responseData = {
             total_url_visites,
             total_registered_url,
-            registered_urls: {
-                _id: registered_urls.map(doc => doc._id), 
-                url: registered_urls.map(doc => doc.url), 
-                short_url: registered_urls.map(doc => doc.short_url), 
-                clicks_count: registered_urls.map(doc => doc.clicks_count) 
-            },
+            registered_urls,
             user_profile
         };
 
