@@ -2,7 +2,7 @@ import 'module-alias/register.js';
 import url_model from "../../models/url.js";
 import { nanoid } from "nanoid";
 import axios from 'axios';
-import useragent from 'useragent';
+import { UAParser } from 'ua-parser-js';
 
 export async function generateURL(req, res) {
     const url = req.body.url;
@@ -19,7 +19,7 @@ export async function generateURL(req, res) {
             country: null,
             device: null,
             browser: "Unknown",
-            referrer: req.get("Referer") || "Direct",
+            referer: req.get("Referer") || "Direct",
         };
 
         try {
@@ -71,6 +71,7 @@ export async function redirectURL(req, res) {
         if (URLinfo) {
             const _id = URLinfo._id;
             const userIp = req.headers['x-forwarded-for'] || req.socket.remoteAddress;
+
             let clickData = {
                 timestamp: new Date(),
                 ip: userIp,
@@ -79,13 +80,16 @@ export async function redirectURL(req, res) {
                 country: null,
                 device: null,
                 browser: "Unknown",
-                referrer: req.get("Referer") || "Direct",
+                referer: req.get("Referer") || "Direct",
             };
 
             try {
                 const geolocationResponse = await axios.get(`http://ip-api.com/json/${userIp}`);
                 const { lat, lon, country, region, city, isp } = geolocationResponse.data;
-                const { device, browser } = useragent.parse(req.get("User-Agent"));
+                const parser = new UAParser(req.get("User-Agent"));
+                const uaResult = parser.getResult();
+                const device = (uaResult.device.type || "desktop").toLowerCase();
+                const browser = (uaResult.browser.name || "unknown").toLowerCase();
                 clickData = {
                     ...clickData,
                     latitude: lat,

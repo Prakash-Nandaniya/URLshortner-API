@@ -51,7 +51,7 @@ const url_schema = new Schema({
                     type: Number, 
                     required: false, 
                 },
-                referrer: {
+                referer: {
                     type: String, 
                     required: false, 
                 },
